@@ -23,8 +23,10 @@ app.get("/",function(req,res){
 io.on('connection',function(socket){  
     console.log("A user is connected");
     socket.on('status added',function(status){
+      console.log("status added");
       add_status(status,function(res){
-        if(res){
+        console.log("refresh",res,'status',status);
+        if(!res){
             io.emit('refresh feed',status);
         } else {
             io.emit('error');
@@ -41,11 +43,13 @@ var add_status = function (status,callback) {
         }
     connection.query("INSERT INTO `status` (`s_text`) VALUES ('"+status+"')",function(err,rows){
             connection.release();
+            console.log(err);
             if(!err) {
               callback(true);
             }
         });
      connection.on('error', function(err) {
+        console.log(err);
               callback(false);
               return;
         });
