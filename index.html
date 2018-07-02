@@ -1,0 +1,46 @@
+<html>
+
+<head>
+    <title>demo</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <script>
+    $(document).ready(function() {
+        var socket = io();
+        $("#add_status").click(function() {
+            socket.emit('status added', $("#comment").val());
+        });
+        socket.on('refresh feed', function(msg) {
+            $("#show_comments").append(msg + '<br /><br />');
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">add data</div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Add status</label>
+                    <textarea class="form-control" id="comment" rows="3"></textarea>
+                </div>
+                <input type="button" class="btn btn-secondary" id="add_status" value="Add Status">
+            </div>
+            <div class="col-4">
+                <div id="show_comments" class="jumbotron"></div>
+            </div>
+        </div>
+
+        
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
