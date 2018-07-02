@@ -31,16 +31,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script>
-        $(document).ready(function() {
-            var socket = io();
-            $("#add_status").click(function() {
-                socket.emit('status added', $("#comment").val());
-            });
-            socket.on('refresh feed', function(msg) {
-                console.log('refresh');
-                $("#show_comments").append(msg + '<br /><br />');
-            });
+
+        var socket = io();
+        $("#add_status").click(function() {
+            socket.emit('status added', $("#comment").val());
         });
+        socket.on('refresh feed', function(msg) {
+            console.log('refresh');
+            window.alert(msg);
+            $("#show_comments").append(msg + '<br /><br />');
+        });
+
     </script>
 </body>
 
